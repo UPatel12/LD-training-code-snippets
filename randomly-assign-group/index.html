@@ -5,13 +5,13 @@
     <title>LaunchDarkly Training App</title>
     <script src="https://unpkg.com/launchdarkly-js-client-sdk@2"></script>
     
-    // added jquery
+// added jquery
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   </head>
   <body>
   
-  // printed the group on the app
+// printed the group on the app
   
     <form action="/action_page.php">
       <p style="color:blue;">Group: <input type="text" id="text1" /></p>
@@ -19,7 +19,7 @@
     <script src="script.js"></script>
     <script>
     
-    // created new function called GroupGenerate to randomly assign the user a group
+// created new function called GroupGenerate to randomly assign the user groups 1-5
     
       var grade = GroupGenerate();
       var user = {
@@ -36,8 +36,6 @@
       
 // assigned grade to text1 so that we can use it in the app UI
       $("#text1").val(grade);
-      
-      
       
       var div = document.createElement("div");
       
