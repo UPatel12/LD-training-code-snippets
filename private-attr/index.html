@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>LaunchDarkly Training App</title>
+    <script src="https://unpkg.com/launchdarkly-js-client-sdk@2"></script>
+  </head>
+  <body>
+    <script src="script.js"></script>
+    <script>
+      var user = {
+        firstName: "Bob",
+        lastName: "Loblaw",
+        
+ // created a new user attribute called email & key, where key is a random uuid. Now if you refresh your app, you will 
+ // have multiple Bob Loblows.
+ 
+        email: "bob@example.com",
+        key: create_UUID(),
+        custom: {
+          groups: "beta_testers"
+        }
+      };
+
+      var div = document.createElement("div");
+      document.body.appendChild(div);
+
+      div.appendChild(document.createTextNode("Initializing..."));
+
+// added privateAttributeNames LDClient configuration object. 
+// https://docs.launchdarkly.com/docs/private-user-attributes
+
+      var ldclient = LDClient.initialize(
+        "5e0ecf5130bfe40902484b23", user, {privateAttributeNames: ["email", "lastName", "firstName"
+        });
+
+      function render() {
+        var shouldShow = ldclient.variation("hello-world-feature-flag", false);
+        var label =
+          (shouldShow ? "Showing" : "Not showing") +
+          " your feature to " +
+          user.key;
+        div.replaceChild(document.createTextNode(label), div.firstChild);
+      }
+
+      ldclient.on("ready", render);
+      ldclient.on("change", render);
+    </script>
+  </body>
+</html>
