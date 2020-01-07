@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>LaunchDarkly Training App</title>
+    <script src="https://unpkg.com/launchdarkly-js-client-sdk@2"></script>
+    
+    // added jquery
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  </head>
+  <body>
+  
+  // printed the group on the app
+  
+    <form action="/action_page.php">
+      <p style="color:blue;">Group: <input type="text" id="text1" /></p>
+    </form>
+    <script src="script.js"></script>
+    <script>
+    
+    // created new function called GroupGenerate to randomly assign the user a group
+    
+      var grade = GroupGenerate();
+
+      var user = {
+        firstName: "Bob",
+        lastName: "Loblaw",
+        email: "bob@example.com",
+        key: create_UUID(),
+        custom: {
+          groups: grade
+        }
+      };
+
+// printed out user context in the console log
+
+      console.log(user);
+      
+// assigned grade to text1 so that we can use it in the app UI
+      $("#text1").val(grade);
+
+      var div = document.createElement("div");
+      document.body.appendChild(div);
+
+      div.appendChild(document.createTextNode("Initializing..."));
+
+      var ldclient = LDClient.initialize("5e0ecf5130bfe40902484b23", user, {
+        privateAttributeNames: ["email", "lastName", "firstName"]
+      });
+
+      function render() {
+        var shouldShow = ldclient.variation("hello-world-feature-flag", false);
+        var label =
+          (shouldShow ? "Showing" : "Not showing") +
+          " your feature to " +
+          user.key;
+        div.replaceChild(document.createTextNode(label), div.firstChild);
+      }
+
+      ldclient.on("ready", render);
+      ldclient.on("change", render);
+    </script>
+  </body>
+</html>
