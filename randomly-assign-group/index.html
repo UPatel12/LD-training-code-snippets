@@ -36,12 +36,21 @@
       
 // assigned grade to text1 so that we can use it in the app UI
       $("#text1").val(grade);
+      
+      
+      
       var div = document.createElement("div");
+      
       document.body.appendChild(div);
+      
       div.appendChild(document.createTextNode("Initializing..."));
+      
+      
       var ldclient = LDClient.initialize("5e0ecf5130bfe40902484b23", user, {
         privateAttributeNames: ["email", "lastName", "firstName"]
       });
+      
+      
       function render() {
         var shouldShow = ldclient.variation("hello-world-feature-flag", false);
         var label =
@@ -50,8 +59,12 @@
           user.key;
         div.replaceChild(document.createTextNode(label), div.firstChild);
       }
+      
+      
       ldclient.on("ready", render);
       ldclient.on("change", render);
+      
+      
     </script>
   </body>
 </html>
