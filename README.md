@@ -1,6 +1,6 @@
 ### LaunchDarkly Training Code ###
 
-##### Build instructions  #####
+##### Build instructions #####
 
 1. private-attributes - these files will show you how to make user attributes private in LaunchDarkly. 
 More context - https://docs.launchdarkly.com/docs/private-user-attributes 
